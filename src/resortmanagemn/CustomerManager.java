@@ -7,6 +7,10 @@ public class CustomerManager{
     private List<Customer>customerList = new ArrayList<>();
     
     public Customer addCustomer(String name,String nationalId,String phone){
+        Customer existing= findByNID(nationalId);
+        if(existing!= null){
+            return existing;
+        }
         if(!isValidPhone(phone)){
             System.out.println("Invalid phoone no.Customer not created.");
             return null;
@@ -27,5 +31,13 @@ public class CustomerManager{
             }
         }
         return true;
+    }
+    public Customer findByNID(String nid){
+        for(Customer c: customerList){
+            if(c.isSameCustomer(nid)){
+                return c;
+            }
+        }
+        return null;
     }
 }
