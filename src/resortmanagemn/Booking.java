@@ -14,14 +14,31 @@ public class Booking {
 
 public Booking(Customer customer, Room room, int days,String checkInDate,String checkOutDate)
 {
-        this.customer = customer;
-        this.room = room;
-        this.days = days;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        
-        this.totalCost = room.getPrice() * days;
-        room.bookRoom();
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer cannot be null.");
+        }
+
+        if (room == null) {
+            throw new IllegalArgumentException("Room cannot be null.");
+        }
+
+        if (days <= 0) {
+            throw new IllegalArgumentException("Days must be positive.");
+        }
+
+        if (!room.isAvailable()) {
+            throw new IllegalStateException("Room is not available.");
+        }
+         this.customer = customer;
+    this.room = room;
+    this.days = days;
+    this.checkInDate = checkInDate;
+    this.checkOutDate = checkOutDate;
+
+
+    this.totalCost = room.getPrice() * days;
+
+    room.book();
     }
 
     public Customer getCustomer() {
@@ -52,6 +69,10 @@ public Booking(Customer customer, Room room, int days,String checkInDate,String 
     }
 
     public void setDays(int days) {
+        if (days <= 0) {
+            throw new IllegalArgumentException("Days must be positive.");
+        }
+
         this.days = days;
         this.totalCost = room.getPrice() * days;
     }
