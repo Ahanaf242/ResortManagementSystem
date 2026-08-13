@@ -49,6 +49,5 @@ public Booking(Customer customer, Room room, int days) {
                " | Total Cost: " + totalCost;
     }
 }
-    
-
+    // Updated by Hira
 
