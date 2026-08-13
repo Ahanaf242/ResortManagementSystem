@@ -40,4 +40,20 @@ public class CustomerManager{
         }
         return null;
     }
+    public Customer findByPhone(String phone){
+        for(Customer c: customerList){
+            if(c.getPhone().equals(phone)){
+                return c;
+            }
+        }
+        return null;
+    }
+    public boolean deleteCustomer(String phone){
+        Customer c= findByPhone(phone);
+        if(c==null){
+            return false;
+        }
+        customerList.remove(c);
+        return true;         
+    }
 }
