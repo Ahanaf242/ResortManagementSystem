@@ -25,8 +25,7 @@ public class CustomerManager{
             if(!Character.isDigit(phone.charAt(i))){
                 return false;
             }
-            return true;
         }
-        
+        return true;
     }
 }
