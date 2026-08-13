@@ -34,5 +34,20 @@ public class Room {
 
         this.status = RoomStatus.AVAILABLE;
     }
-        
+    public int getRoomNumber(){
+        return roomNumber;
+    }
+     public RoomType getType(){
+        return type;
+    }
+      public int getPrice(){
+        return price;
+    }
+       public RoomStatus getRoomStatus(){
+        return status;
+    }
+        public boolean isAvailable(){
+        return status == RoomStatus.AVAILABLE ;
+    }
+}        
     
