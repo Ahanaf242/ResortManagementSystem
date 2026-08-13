@@ -49,5 +49,38 @@ public class Room {
         public boolean isAvailable(){
         return status == RoomStatus.AVAILABLE ;
     }
-}        
+        
+        public boolean book(){
+            if(status == RoomStatus.AVAILABLE){
+                status = RoomStatus.BOOKED;
+            return true;
+            }
+            return false;
+        }
+        
+        public boolean free(){
+            if(status == RoomStatus.BOOKED){
+                status = RoomStatus.AVAILABLE;
+            return true;
+            }
+            return false;
+        }
+        
+        public boolean setMaintenance(){
+            if (status != RoomStatus.BOOKED) {
+            status = RoomStatus.MAINTENANCE;
+            return true;
+        }
+        return false;
+        }
+        
+        public boolean endMaintenance() {
+        if (status == RoomStatus.MAINTENANCE) {
+            status = RoomStatus.AVAILABLE;
+            return true;
+        }
+        return false;
+    }
+}
+
     
