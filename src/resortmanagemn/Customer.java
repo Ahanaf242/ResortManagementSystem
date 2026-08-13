@@ -31,6 +31,10 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    
+     public boolean isSameCustomer(String checkNID) {
+        return this.nationalId.equals(checkNID);
+    }
 
     @Override
     public String toString() {
