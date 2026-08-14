@@ -30,6 +30,10 @@ This project is a Resort Management System developed as a team project (5 member
 ### Payment System
 - Record a payment with amount and method (Cash, Card, Mobile Banking)
 - View list of all payments made
+  
+### Resort Service
+- Add resort services with a service name and price
+- View the list of all available/added services
 
 ### Admin Login
 - Secure login panel with ID and password
@@ -68,6 +72,7 @@ This project is a Resort Management System developed as a team project (5 member
   - `Customer.java`, `CustomerManager.java`, `CustomerGUI.java`, `CustomerManagerGUI.java` – Customer management
   - `Booking.java`, `BookingManager.java`, `BookingGUI.java`, `BookingManagerGUI.java` – Booking management
   - `Paymentsystem.java`, `PaymentsystemGUI.java` – Payment system
+  - `Resortservice.java`, `ResortserviceGUI.java` – Resort service management
   - `User.java`, `AdminGUI.java` – Admin login
 - `build.xml` – Ant build script
 - `manifest.mf` – Manifest file
@@ -77,7 +82,7 @@ This project is a Resort Management System developed as a team project (5 member
 - Tanbin – Room management (`Room`, `RoomGUI`)
 - Mitu – Customer management (`Customer`, `CustomerManager`, `CustomerGUI`, `CustomerManagerGUI`)
 - Hira – Booking management (`Booking`, `BookingManager`, `BookingGUI`, `BookingManagerGUI`)
-- Ful – Payment system (`Paymentsystem`, `PaymentsystemGUI`)
+- Ful – Payment system (`Paymentsystem`, `PaymentsystemGUI`) and Resort Service (`Resortservice`, `ResortserviceGUI`)
 - Ahanaf – Admin login (`User`, `AdminGUI`); merged all branches, resolved conflicts, and ensured the final build runs
 
 ## License
