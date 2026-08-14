@@ -87,6 +87,11 @@ public class BookingManager {
         return null;
 
     }
+    public boolean isRoomBooked(int roomNumber) {
+
+    return findBookingByRoom(roomNumber) != null;
+
+}
 
     public boolean removeBooking(Booking booking) {
 
