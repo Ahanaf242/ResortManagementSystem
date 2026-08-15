@@ -86,7 +86,7 @@ This project is a Resort Management System developed as a team project (5 member
 - Ahanaf – Admin login (`User`, `AdminGUI`); merged all branches, resolved conflicts, and ensured the final build runs
 
 ## Citation
-https://drive.google.com/file/d/1ybNNV7RGUKxiHQwxwlfDaya6rToy5Te4/view
+https://drive.google.com/file/d/1WMuCjcqf5HlkcD3ij2_7Uni_JodWp7ki/view?usp=drivesdk
 
 ## Instructor Information
 Teacher Name       :  Md. Mezbaul Islam Zion                                   
