@@ -85,6 +85,14 @@ This project is a Resort Management System developed as a team project (5 member
 - Ful – Payment system (`Paymentsystem`, `PaymentsystemGUI`) and Resort Service (`Resortservice`, `ResortserviceGUI`)
 - Ahanaf – Admin login (`User`, `AdminGUI`); merged all branches, resolved conflicts, and ensured the final build runs
 
+## Citation
+https://drive.google.com/file/d/1ybNNV7RGUKxiHQwxwlfDaya6rToy5Te4/view
+
+## Instructor Information
+Teacher Name       :  Md. Mezbaul Islam Zion                                   
+Designation        : Lecturer  
+Department         : Computer Science and Engineering (DIU)
+
 ## License
 
 This project was developed for academic purposes.
