@@ -1,0 +1,19 @@
+HOW TO OPEN IN NETBEANS 8
+=========================
+
+1. Extract the ZIP file.
+2. Open NetBeans.
+3. Select File > Open Project.
+4. Select the extracted ResortmanagementSystem folder.
+5. Click Open Project.
+6. Select Run > Clean and Build Project.
+7. Select Run > Run Project.
+
+Required JDK: JDK 8 or newer.
+Main class: resortmanagemn.ResortGUI
+
+Admin ID: Ahanaf
+Admin Password: 584
+
+Do not select an individual Java file. Select the full
+ResortmanagementSystem folder that contains build.xml and nbproject.

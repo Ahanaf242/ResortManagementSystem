@@ -8,6 +8,15 @@ public class CustomerManager {
     private List<Customer> customerList = new ArrayList<>();
 
     public Customer addCustomer(String name, String nationalId, String phone) {
+        if (name == null || name.trim().isEmpty()
+                || nationalId == null || nationalId.trim().isEmpty()) {
+            return null;
+        }
+
+        name = name.trim();
+        nationalId = nationalId.trim();
+        phone = phone == null ? "" : phone.trim();
+
         Customer existing = findByNID(nationalId);
         if (existing != null) {
             return existing;
@@ -23,6 +32,9 @@ public class CustomerManager {
     }
 
     public boolean isValidPhone(String phone) {
+        if (phone == null) {
+            return false;
+        }
         if (phone.length() != 11) {
             return false;
         }
@@ -35,8 +47,11 @@ public class CustomerManager {
     }
 
     public Customer findByNID(String nid) {
+        if (nid == null) {
+            return null;
+        }
         for (Customer c : customerList) {
-            if (c.isSameCustomer(nid)) {
+            if (c.isSameCustomer(nid.trim())) {
                 return c;
             }
         }
@@ -44,8 +59,11 @@ public class CustomerManager {
     }
 
     public Customer findByPhone(String phone) {
+        if (phone == null) {
+            return null;
+        }
         for (Customer c : customerList) {
-            if (c.getPhone().equals(phone)) {
+            if (c.getPhone().equals(phone.trim())) {
                 return c;
             }
         }
@@ -67,8 +85,12 @@ public class CustomerManager {
             return;
         }
         for (Customer c : customerList) {
-            System.out.println("c");
+            System.out.println(c);
         }
+    }
+
+    public List<Customer> getCustomerList() {
+        return new ArrayList<>(customerList);
     }
 }
 //Mitu's feature_251-15-091 ends

@@ -3,7 +3,7 @@ package resortmanagemn;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class PaymentsystemGUI extends JFrame {
@@ -20,7 +20,7 @@ public class PaymentsystemGUI extends JFrame {
     private JTextArea displayArea;
 
 
-    private ArrayList<String> paymentList = new ArrayList<>();
+    private List<String> paymentList = ApplicationData.getPaymentList();
 
 
 
@@ -190,10 +190,7 @@ public class PaymentsystemGUI extends JFrame {
 
 
             public void actionPerformed(ActionEvent e){
-
-
-
-                String amount = amountField.getText();
+                String amount = amountField.getText().trim();
 
 
                 String method =
@@ -202,21 +199,35 @@ public class PaymentsystemGUI extends JFrame {
 
 
 
-                paymentList.add(
-                        amount + " Paid by " + method
-                );
+                try {
+                    float numericAmount = Float.parseFloat(amount);
+                    if (numericAmount <= 0) {
+                        throw new IllegalArgumentException("Payment amount must be positive.");
+                    }
+
+                    paymentList.add(
+                            numericAmount + " Paid by " + method
+                    );
 
 
 
 
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Payment Successful"
-                );
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Payment Successful"
+                    );
 
 
 
-                amountField.setText("");
+                    amountField.setText("");
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Enter a valid payment amount."
+                    );
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
 
 
 

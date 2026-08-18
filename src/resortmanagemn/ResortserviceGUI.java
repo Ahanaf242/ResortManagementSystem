@@ -3,7 +3,7 @@ package resortmanagemn;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class ResortserviceGUI extends JFrame {
@@ -23,7 +23,7 @@ public class ResortserviceGUI extends JFrame {
 
 
 
-    private ArrayList<String> serviceList = new ArrayList<>();
+    private List<String> serviceList = ApplicationData.getServiceList();
 
 
 
@@ -230,35 +230,48 @@ public class ResortserviceGUI extends JFrame {
 
 
                 String name =
-                        serviceNameField.getText();
+                        serviceNameField.getText().trim();
 
 
                 String price =
-                        priceField.getText();
+                        priceField.getText().trim();
 
 
 
 
 
-                serviceList.add(
-                        name + " : " + price
-                );
+                try {
+                    int numericPrice = Integer.parseInt(price);
+                    if (name.isEmpty()) {
+                        throw new IllegalArgumentException("Service name is required.");
+                    }
+                    if (numericPrice < 0) {
+                        throw new IllegalArgumentException("Service price cannot be negative.");
+                    }
+
+                    serviceList.add(
+                            name + " : " + numericPrice
+                    );
 
 
 
 
 
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Service Added Successfully"
-                );
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Service Added Successfully"
+                    );
 
 
 
 
-                serviceNameField.setText("");
-
-                priceField.setText("");
+                    serviceNameField.setText("");
+                    priceField.setText("");
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Enter a valid service price.");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
 
 
 

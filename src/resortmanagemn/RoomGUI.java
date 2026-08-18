@@ -3,292 +3,182 @@ package resortmanagemn;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class RoomGUI extends JFrame {
-
     private JTextField roomNumberField;
     private JTextField priceField;
-
-    private JComboBox typeBox;
-
-    private JButton addButton;
-    private JButton showButton;
-    private JButton bookButton;
-    private JButton freeButton;
-    private JButton maintenanceButton;
-    private JButton endMaintenanceButton;
-
+    private JComboBox<String> typeBox;
     private JTextArea displayArea;
-
-    private ArrayList<Room> roomList;
+    private List<Room> roomList;
 
     public RoomGUI() {
-
         setTitle("Room Management");
-
-        setSize(800, 650);
-
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
         setLocationRelativeTo(null);
+        roomList = ApplicationData.getRoomList();
 
-        roomList = new ArrayList<>();
+        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        JPanel inputPanel = new JPanel();
-
-        inputPanel.setLayout(new GridLayout(4, 2, 20, 20));
-
-        JLabel roomLabel = new JLabel("Room Number:");
-
-        JLabel priceLabel = new JLabel("Price:");
-
-        JLabel typeLabel = new JLabel("Room Type:");
-
+        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 15, 15));
+        inputPanel.add(new JLabel("Room Number:"));
         roomNumberField = new JTextField();
-
-        priceField = new JTextField();
-
-        String types[] = {
-            "DELUXE",
-            "SUPER_DELUXE",
-            "KING_SIZE"
-        };
-
-        typeBox = new JComboBox(types);
-
-        addButton = new JButton("Add Room");
-
-        showButton = new JButton("Show Rooms");
-
-        inputPanel.add(roomLabel);
-
         inputPanel.add(roomNumberField);
-
-        inputPanel.add(typeLabel);
-
+        inputPanel.add(new JLabel("Room Type:"));
+        typeBox = new JComboBox<>(new String[]{
+            "DELUXE", "SUPER_DELUXE", "KING_SIZE"
+        });
         inputPanel.add(typeBox);
-
-        inputPanel.add(priceLabel);
-
+        inputPanel.add(new JLabel("Price:"));
+        priceField = new JTextField();
         inputPanel.add(priceField);
-
-        inputPanel.add(addButton);
-
-        inputPanel.add(showButton);
-
-        add(inputPanel, BorderLayout.NORTH);
+        mainPanel.add(inputPanel, BorderLayout.NORTH);
 
         displayArea = new JTextArea();
-
-        JScrollPane scroll = new JScrollPane(displayArea);
-
-        add(scroll, BorderLayout.CENTER);
+        displayArea.setEditable(false);
+        displayArea.setFont(new Font("Monospaced", Font.PLAIN, 15));
+        mainPanel.add(new JScrollPane(displayArea), BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
-
-        bookButton = new JButton("Book Room");
-
-        freeButton = new JButton("Free Room");
-
-        maintenanceButton = new JButton("Maintenance");
-
-        endMaintenanceButton = new JButton("End Maintenance");
-
-        bookButton.setFont(new Font("Arial", Font.BOLD, 14));
-
-        freeButton.setFont(new Font("Arial", Font.BOLD, 14));
-
-        maintenanceButton.setFont(new Font("Arial", Font.BOLD, 14));
-
-        endMaintenanceButton.setFont(new Font("Arial", Font.BOLD, 14));
-
+        JButton addButton = new JButton("Add Room");
+        JButton showButton = new JButton("Show Rooms");
+        JButton bookButton = new JButton("Book Room");
+        JButton freeButton = new JButton("Free Room");
+        JButton maintenanceButton = new JButton("Maintenance");
+        JButton endMaintenanceButton = new JButton("End Maintenance");
+        buttonPanel.add(addButton);
+        buttonPanel.add(showButton);
         buttonPanel.add(bookButton);
-
         buttonPanel.add(freeButton);
-
         buttonPanel.add(maintenanceButton);
-
         buttonPanel.add(endMaintenanceButton);
-
-        add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        add(mainPanel);
 
         addButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
-
-                int roomNumber
-                        = Integer.parseInt(roomNumberField.getText());
-
-                int price
-                        = Integer.parseInt(priceField.getText());
-
-                RoomType type
-                        = RoomType.valueOf(
-                                typeBox.getSelectedItem().toString()
-                        );
-
-                Room room
-                        = new Room(roomNumber, type, price);
-
-                roomList.add(room);
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Room Added"
-                );
-
+                addRoom();
             }
-
         });
 
         showButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
-
-                displayArea.setText("");
-
-                for (Room r : roomList) {
-
-                    displayArea.append(
-                            r.toString() + "\n"
-                    );
-
-                }
-
+                showRooms();
             }
-
         });
 
         bookButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
-
-                String number
-                        = JOptionPane.showInputDialog(
-                                "Enter Room Number"
-                        );
-
-                for (Room r : roomList) {
-
-                    if (r.getRoomNumber() == Integer.parseInt(number)) {
-
-                        if (r.book()) {
-
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    "Room Booked"
-                            );
-
-                        } else {
-
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    "Room Not Available"
-                            );
-
-                        }
-
-                    }
-
-                }
-
+                changeRoomStatus("book");
             }
-
         });
 
         freeButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
-
-                String number
-                        = JOptionPane.showInputDialog(
-                                "Enter Room Number"
-                        );
-
-                for (Room r : roomList) {
-
-                    if (r.getRoomNumber() == Integer.parseInt(number)) {
-
-                        r.free();
-
-                        JOptionPane.showMessageDialog(
-                                null,
-                                "Room Free"
-                        );
-
-                    }
-
-                }
-
+                changeRoomStatus("free");
             }
-
         });
 
         maintenanceButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
-
-                String number
-                        = JOptionPane.showInputDialog(
-                                "Enter Room Number"
-                        );
-
-                for (Room r : roomList) {
-
-                    if (r.getRoomNumber() == Integer.parseInt(number)) {
-
-                        r.setMaintenance();
-
-                        JOptionPane.showMessageDialog(
-                                null,
-                                "Maintenance Set"
-                        );
-
-                    }
-
-                }
-
+                changeRoomStatus("maintenance");
             }
-
         });
 
         endMaintenanceButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
+                changeRoomStatus("available");
+            }
+        });
+    }
 
-                String number
-                        = JOptionPane.showInputDialog(
-                                "Enter Room Number"
-                        );
+    private void addRoom() {
+        try {
+            int roomNumber = Integer.parseInt(roomNumberField.getText().trim());
+            int price = Integer.parseInt(priceField.getText().trim());
+            Room room = new Room(
+                    roomNumber,
+                    RoomType.valueOf(typeBox.getSelectedItem().toString()),
+                    price
+            );
 
-                for (Room r : roomList) {
+            if (ApplicationData.addRoom(room)) {
+                JOptionPane.showMessageDialog(this, "Room Added");
+                roomNumberField.setText("");
+                priceField.setText("");
+                showRooms();
+            } else {
+                JOptionPane.showMessageDialog(this, "Room number already exists.");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Room number and price must be valid numbers.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
 
-                    if (r.getRoomNumber() == Integer.parseInt(number)) {
+    private void showRooms() {
+        displayArea.setText("ROOM LIST\n\n");
+        if (roomList.isEmpty()) {
+            displayArea.append("No rooms found.");
+            return;
+        }
+        for (Room room : roomList) {
+            displayArea.append(room.toString() + "\n");
+        }
+    }
 
-                        r.endMaintenance();
-
-                        JOptionPane.showMessageDialog(
-                                null,
-                                "Maintenance End"
-                        );
-
-                    }
-
-                }
-
+    private void changeRoomStatus(String action) {
+        try {
+            String input = JOptionPane.showInputDialog(this, "Enter Room Number");
+            if (input == null) {
+                return;
             }
 
-        });
+            Room room = ApplicationData.findRoom(Integer.parseInt(input.trim()));
+            if (room == null) {
+                JOptionPane.showMessageDialog(this, "Room Not Found");
+                return;
+            }
 
+            boolean changed;
+            String successMessage;
+
+            if (action.equals("book")) {
+                changed = room.book();
+                successMessage = "Room Booked";
+            } else if (action.equals("free")) {
+                if (ApplicationData.getBookingManager().isRoomBooked(room.getRoomNumber())) {
+                    JOptionPane.showMessageDialog(this,
+                            "Cancel the active booking before freeing this room.");
+                    return;
+                }
+                changed = room.free();
+                successMessage = "Room Free";
+            } else if (action.equals("maintenance")) {
+                changed = room.setMaintenance();
+                successMessage = "Maintenance Set";
+            } else {
+                changed = room.endMaintenance();
+                successMessage = "Maintenance Ended";
+            }
+
+            JOptionPane.showMessageDialog(this,
+                    changed ? successMessage : "Room status cannot be changed.");
+            showRooms();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Enter a valid room number.");
+        }
     }
 
     public static void main(String args[]) {
-
-        RoomGUI gui = new RoomGUI();
-
-        gui.setVisible(true);
-
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new RoomGUI().setVisible(true);
+            }
+        });
     }
-
 }

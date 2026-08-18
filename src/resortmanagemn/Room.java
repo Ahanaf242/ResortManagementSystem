@@ -1,17 +1,5 @@
 package resortmanagemn;
 
-enum RoomType {
-    DELUXE,
-    SUPER_DELUXE,
-    KING_SIZE
-}
-
-enum RoomStatus {
-    AVAILABLE,
-    BOOKED,
-    MAINTENANCE
-}
-
 public class Room {
 
     private int roomNumber;
